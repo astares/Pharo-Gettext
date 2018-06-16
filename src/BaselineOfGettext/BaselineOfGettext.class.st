@@ -9,7 +9,7 @@ Class {
 
 { #category : #baseline }
 BaselineOfGettext >> baseline: spec [
-
+	<baseline>
 	spec for: #'common' do: [
 		spec 
 			package: 'Gettext-Core';
