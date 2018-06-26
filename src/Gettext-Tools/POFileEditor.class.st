@@ -54,14 +54,15 @@ POFileEditor >> compile [
 { #category : #'private - actions' }
 POFileEditor >> generate [
 	|selections|
-	selections := GTXSelectPackageBrowser open.
+	selections :=  SelectTranslationPackageDialog open selectedPackages.
+	(TranslationStringFinder allStringsReceivingMessage: #translated inPackages: selections) inspect
 	  
 ]
 
 { #category : #'private - actions' }
 POFileEditor >> help [
 
-	(Workspace openContents: self class comment) toggleStylingActive 
+	Workspace openContents: self class comment 
 ]
 
 { #category : #'private - accessing' }

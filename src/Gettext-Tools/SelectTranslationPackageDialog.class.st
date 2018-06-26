@@ -2,8 +2,8 @@
 Used to select a package
 "
 Class {
-	#name : #GTXSelectPackageBrowser,
-	#superclass : #ComposableModel,
+	#name : #SelectTranslationPackageDialog,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'toSelectModel',
 		'selectedModel',
@@ -17,7 +17,7 @@ Class {
 }
 
 { #category : #specs }
-GTXSelectPackageBrowser class >> defaultSpec [
+SelectTranslationPackageDialog class >> defaultSpec [
 	<spec>
 	
 	^ SpecLayout composed
@@ -33,30 +33,41 @@ GTXSelectPackageBrowser class >> defaultSpec [
 					add:#addButtonModel;
 					add:#addAllButtonModel;
 					add:#removeButtonModel;
-					add:#removeAllButtonModel;
-					add: #nextButtonModel ] height: 25 ]
+					add:#removeAllButtonModel ] height: 25 ]
 ]
 
 { #category : #examples }
-GTXSelectPackageBrowser class >> example [
+SelectTranslationPackageDialog class >> example [
 
 	self open
+		selectedPackages inspect
+	
 ]
 
 { #category : #'instance creation' }
-GTXSelectPackageBrowser class >> open [
+SelectTranslationPackageDialog class >> open [
 	<script>
-	self new items: RPackageOrganizer default packages;
-		openWithSpec 
+	^self openOn: World
+]
+
+{ #category : #'instance creation' }
+SelectTranslationPackageDialog class >> openOn: parentWindow [
+	<script: 'self openOn: World'>
+	| dialog |
+	dialog := (self new) 
+				items: RPackageOrganizer default packages.
+	dialog openDialogWithSpec.
+	parentWindow openModal: dialog window window widget.
+	^dialog  
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> addAllButtonModel [
+SelectTranslationPackageDialog >> addAllButtonModel [
 	^ addAllButtonModel
 ]
 
 { #category : #'private - actions' }
-GTXSelectPackageBrowser >> addAllItems [
+SelectTranslationPackageDialog >> addAllItems [
 
 	| tmp |
 	tmp := self sort: (selectedModel listItems asOrderedCollection addAll: (toSelectModel listItems); yourself ).
@@ -67,12 +78,12 @@ GTXSelectPackageBrowser >> addAllItems [
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> addButtonModel [
+SelectTranslationPackageDialog >> addButtonModel [
 	^ addButtonModel
 ]
 
 { #category : #'private - actions' }
-GTXSelectPackageBrowser >> addItems [
+SelectTranslationPackageDialog >> addItems [
 
 	toSelectModel selectedItems
 		ifNotNil: [ :items |  
@@ -83,7 +94,7 @@ GTXSelectPackageBrowser >> addItems [
 ]
 
 { #category : #initialization }
-GTXSelectPackageBrowser >> initialize [
+SelectTranslationPackageDialog >> initialize [
 
 	| wrappingBlock |
 	super initialize.
@@ -99,7 +110,7 @@ GTXSelectPackageBrowser >> initialize [
 ]
 
 { #category : #'private - initialization' }
-GTXSelectPackageBrowser >> initializeButtons [
+SelectTranslationPackageDialog >> initializeButtons [
 
 	self instantiateModels: #(
 		addButtonModel ButtonModel
@@ -137,12 +148,12 @@ GTXSelectPackageBrowser >> initializeButtons [
 ]
 
 { #category : #'private - initialization' }
-GTXSelectPackageBrowser >> initializeLists [
+SelectTranslationPackageDialog >> initializeLists [
 	 
 ]
 
 { #category : #initialization }
-GTXSelectPackageBrowser >> initializeWidgets [
+SelectTranslationPackageDialog >> initializeWidgets [
 	self 
 		initializeLists;
 		initializeButtons;
@@ -150,7 +161,7 @@ GTXSelectPackageBrowser >> initializeWidgets [
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> items: aCollection [
+SelectTranslationPackageDialog >> items: aCollection [
 	"Set the elements to be analysed"
 	
 	toSelectModel items: (self sort: aCollection)
@@ -158,27 +169,26 @@ GTXSelectPackageBrowser >> items: aCollection [
 ]
 
 { #category : #'private - actions' }
-GTXSelectPackageBrowser >> nextAction [
+SelectTranslationPackageDialog >> nextAction [
 	
-	| filter |
- 
-	filter := self selectedModel listItems.
-	(TranslationStringFinder allStringsReceivingMessage: #translated inPackages: filter) inspect.
+	| filter | 
+	filter :=  self selectedModel listItems.
+	
 	"self window close"
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> nextButtonModel [
+SelectTranslationPackageDialog >> nextButtonModel [
 	^ nextButtonModel
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> removeAllButtonModel [
+SelectTranslationPackageDialog >> removeAllButtonModel [
 	^ removeAllButtonModel
 ]
 
 { #category : #'private - actions' }
-GTXSelectPackageBrowser >> removeAllItems [
+SelectTranslationPackageDialog >> removeAllItems [
 
 	| tmp |
 	tmp := self sort: (toSelectModel listItems asOrderedCollection addAll: (selectedModel listItems);yourself ).
@@ -189,12 +199,12 @@ GTXSelectPackageBrowser >> removeAllItems [
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> removeButtonModel [
+SelectTranslationPackageDialog >> removeButtonModel [
 	^ removeButtonModel
 ]
 
 { #category : #'private - actions' }
-GTXSelectPackageBrowser >> removeItems [
+SelectTranslationPackageDialog >> removeItems [
 	
 	selectedModel selectedItems
 		ifNotNil: [:items | 
@@ -206,12 +216,19 @@ GTXSelectPackageBrowser >> removeItems [
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> selectedModel [
+SelectTranslationPackageDialog >> selectedModel [
 	^ selectedModel
 ]
 
+{ #category : #accessing }
+SelectTranslationPackageDialog >> selectedPackages [
+
+	^self selectedModel listItems
+
+]
+
 { #category : #'private - initialization' }
-GTXSelectPackageBrowser >> setFocusOrder [
+SelectTranslationPackageDialog >> setFocusOrder [
 
 	self focusOrder
 		add: addButtonModel;
@@ -222,17 +239,17 @@ GTXSelectPackageBrowser >> setFocusOrder [
 ]
 
 { #category : #'private - utilities' }
-GTXSelectPackageBrowser >> sort: aCollection [
+SelectTranslationPackageDialog >> sort: aCollection [
 	
 	^ aCollection asOrderedCollection sort: [:e1 :e2 | (e1 asString) < (e2 asString)].
 ]
 
 { #category : #initialization }
-GTXSelectPackageBrowser >> title [ 
+SelectTranslationPackageDialog >> title [ 
 	^'Select package'
 ]
 
 { #category : #accessing }
-GTXSelectPackageBrowser >> toSelectModel [
+SelectTranslationPackageDialog >> toSelectModel [
 	^ toSelectModel
 ]
