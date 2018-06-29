@@ -8,9 +8,14 @@ Class {
 }
 
 { #category : #tests }
+POFileTest class >> shouldInheritSelectors [
+	^ true
+]
+
+{ #category : #tests }
 POFileTest >> testFileExtension [
 
-	self assert: POFile fileExtension = 'po'
+	self assert: POFile fileExtension equals: 'po'
 ]
 
 { #category : #tests }

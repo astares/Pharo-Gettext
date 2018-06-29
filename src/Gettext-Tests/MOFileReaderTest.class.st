@@ -66,9 +66,9 @@ MOFileReaderTest >> testReadingHeader [
 	
 	self 
 		assert: reader isLittleEndian;
-		assert: reader revision = 0;
-		assert: reader numberOfStrings = 2;
-		assert: reader originalTableOffset = 28;
-		assert: reader translatedTableOffset = 44.
+		assert: reader revision equals: 0;
+		assert: reader numberOfStrings equals: 2;
+		assert: reader originalTableOffset equals: 28;
+		assert: reader translatedTableOffset equals: 44.
 		 
 ]

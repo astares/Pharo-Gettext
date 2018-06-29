@@ -3,7 +3,7 @@ Unit tests for POTemplateFile
 "
 Class {
 	#name : #POTemplateFileTest,
-	#superclass : #TestCase,
+	#superclass : #POFileTest,
 	#category : #'Gettext-Tests-Model'
 }
 
