@@ -63,8 +63,7 @@ POFileEditor >> generate [
 		]
 	].
 	writer := POTemplateFileWriter write: templateFile on: String new writeStream.
-	writer stream contents inspect
-	  
+	self text text: writer stream contents
 ]
 
 { #category : #'private - actions' }
