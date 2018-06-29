@@ -1,5 +1,5 @@
 "
-A model for a Portable Object (*.po) file
+An in-memory model for a Portable Object (*.po) file
 "
 Class {
 	#name : #POFile,

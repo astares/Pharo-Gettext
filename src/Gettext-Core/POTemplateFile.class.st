@@ -1,5 +1,5 @@
 "
-A model for a Portable Object (*.pot) template file 
+An in-memory model for a Portable Object (*.pot) template file 
 "
 Class {
 	#name : #POTemplateFile,
@@ -18,9 +18,9 @@ POTemplateFile class >> fileExtension [
 ]
 
 { #category : #accessing }
-POTemplateFile >> addTranslation: aString forKey: aKey [
+POTemplateFile >> addTranslation: aPOTranslation [
 
-	self translations at: aKey put: aString
+	^self translations at: aPOTranslation id put: aPOTranslation 
 ]
 
 { #category : #initialization }

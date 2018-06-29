@@ -1,5 +1,5 @@
 "
-A writer for Portable Object (*.po) files.
+A writer for Portable Object (*.po) files writing POFile instances
 "
 Class {
 	#name : #POFileWriter,
@@ -15,7 +15,7 @@ Class {
 POFileWriter class >> example1 [
 
 	|writer|
-	writer := POFileWriter write: POFile new on: String new writeStream.
+	writer := self write: POFile new on: String new writeStream.
 	writer stream contents inspect
 ]
 

@@ -53,12 +53,13 @@ POFileEditor >> compile [
 
 { #category : #'private - actions' }
 POFileEditor >> generate [
-	|selections file|
+	|selections file translation |
 	file := POTemplateFile new.
 	selections :=  SelectTranslationPackageDialog open selectedPackages.
 	(TranslationStringFinder allStringsReceivingMessage: #translated inPackages: selections) do: [:each | 
 		each value do: [:key | 
-			file addTranslation: '' forKey: key
+			translation := POTranslation id: key message: '' reference: ''.
+			file addTranslation: translation
 		]
 	].
 
