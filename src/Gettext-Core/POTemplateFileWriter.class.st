@@ -42,5 +42,7 @@ POTemplateFileWriter >> writeTranslation: aTranslation [
 { #category : #'private - writing' }
 POTemplateFileWriter >> writeTranslations [
 
-	self portableObjectFile translations do: [ :each | self writeTranslation: each ]
+	self portableObjectFile translations 
+		do: [ :each | self writeTranslation: each ]
+		separatedBy: [ stream cr; cr ]
 ]

@@ -53,17 +53,17 @@ POFileEditor >> compile [
 
 { #category : #'private - actions' }
 POFileEditor >> generate [
-	|selections file translation |
-	file := POTemplateFile new.
+	|selections templateFile translation writer |
+	templateFile := POTemplateFile new.
 	selections :=  SelectTranslationPackageDialog open selectedPackages.
 	(TranslationStringFinder allStringsReceivingMessage: #translated inPackages: selections) do: [:each | 
 		each value do: [:key | 
 			translation := POTranslation id: key message: '' reference: ''.
-			file addTranslation: translation
+			templateFile addTranslation: translation
 		]
 	].
-
-	self halt.
+	writer := POTemplateFileWriter write: templateFile on: String new writeStream.
+	writer stream contents inspect
 	  
 ]
 
