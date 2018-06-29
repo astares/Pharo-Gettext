@@ -7,8 +7,14 @@ Class {
 	#category : #'Gettext-Tests-Model'
 }
 
+{ #category : #defaults }
+POTemplateFileTest >> defaultTestClass [
+
+	^POTemplateFile 
+]
+
 { #category : #tests }
 POTemplateFileTest >> testFileExtension [
 
-	self assert: POTemplateFile fileExtension equals: 'pot'
+	self assert: self defaultTestClass fileExtension equals: 'pot'
 ]
